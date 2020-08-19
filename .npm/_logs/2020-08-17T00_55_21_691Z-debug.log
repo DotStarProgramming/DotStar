@@ -1,0 +1,34 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'run', 'build' ]
+2 info using npm@6.14.7
+3 info using node@v14.8.0
+4 verbose run-script [ 'prebuild', 'build', 'postbuild' ]
+5 info lifecycle main@0.1.0~prebuild: main@0.1.0
+6 info lifecycle main@0.1.0~build: main@0.1.0
+7 verbose lifecycle main@0.1.0~build: unsafe-perm in lifecycle true
+8 verbose lifecycle main@0.1.0~build: PATH: /usr/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/home/admin/main/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+9 verbose lifecycle main@0.1.0~build: CWD: /home/admin/main
+10 silly lifecycle main@0.1.0~build: Args: [ '-c', 'react-scripts build' ]
+11 silly lifecycle main@0.1.0~build: Returned: code: 126  signal: null
+12 info lifecycle main@0.1.0~build: Failed to exec build script
+13 verbose stack Error: main@0.1.0 build: `react-scripts build`
+13 verbose stack Exit status 126
+13 verbose stack     at EventEmitter.<anonymous> (/usr/lib/node_modules/npm/node_modules/npm-lifecycle/index.js:332:16)
+13 verbose stack     at EventEmitter.emit (events.js:314:20)
+13 verbose stack     at ChildProcess.<anonymous> (/usr/lib/node_modules/npm/node_modules/npm-lifecycle/lib/spawn.js:55:14)
+13 verbose stack     at ChildProcess.emit (events.js:314:20)
+13 verbose stack     at maybeClose (internal/child_process.js:1051:16)
+13 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:287:5)
+14 verbose pkgid main@0.1.0
+15 verbose cwd /home/admin/main
+16 verbose Linux 5.4.0-26-generic
+17 verbose argv "/usr/bin/node" "/usr/bin/npm" "run" "build"
+18 verbose node v14.8.0
+19 verbose npm  v6.14.7
+20 error code ELIFECYCLE
+21 error errno 126
+22 error main@0.1.0 build: `react-scripts build`
+22 error Exit status 126
+23 error Failed at the main@0.1.0 build script.
+23 error This is probably not a problem with npm. There is likely additional logging output above.
+24 verbose exit [ 126, true ]

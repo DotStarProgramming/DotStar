@@ -1,0 +1,18 @@
+:root {
+  --dark-primary: #1976D2;
+  --default-primary: #2196F3;
+  --light-primary: #BBDEFB;
+  --text-primary: #FFFFFF;
+  --accent: #607D8B;
+  --primary-text: #212121;
+  --secondary-text: #757575;
+  --divider: #BDBDBD;
+}
+
+.primary-text{
+  color: var(--primary-text);
+}
+
+.accent-text{
+  color: var(--default-primary);
+}
