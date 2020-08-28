@@ -46,6 +46,23 @@ export default class Pagify extends Component {
 		}
 	}
 
+	handleWheel = (keyIndex, e) => {
+		if(this.props.children[this.state.currentPage].props.scrollable){
+			let scrollPad = 30;
+			let atBottom = e.target.scrollTop + e.target.offsetHeight > e.target.scrollHeight - scrollPad;
+			let atTop = e.target.scrollTop < scrollPad;
+			let isCurrent = keyIndex === this.state.currentPage;
+			
+			if(isCurrent){
+				this.setState({
+					blockScrollUp: !atTop,
+					blockScrollDown: !atBottom
+				})
+			}
+		}
+		
+	}
+
 	render() {
 
 		return (
@@ -71,7 +88,7 @@ export default class Pagify extends Component {
 			>
 				{_.map(this.props.children, (child => {
 					let keyIndex = this.props.children.indexOf(child);
-					return <Page key={keyIndex} absolute={child.props.absolute} onScroll={e => this.handleScroll(keyIndex, e)}>
+					return <Page key={keyIndex} absolute={child.props.absolute} onScroll={e => this.handleScroll(keyIndex, e)} onWheel={e => this.handleWheel(keyIndex, e)}>
 						{child}
 					</Page>
 				}))}	
