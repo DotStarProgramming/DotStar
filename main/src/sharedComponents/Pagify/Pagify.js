@@ -4,6 +4,7 @@ import ReactPageScroller from "react-page-scroller";
 
 import './Pagify.css';
 import Page from '../Page';
+import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 
 export default class Pagify extends Component {
 	constructor(props) {
@@ -16,6 +17,14 @@ export default class Pagify extends Component {
     }
 
     handlePageChange = number => {
+		if(this.props.children[number].props.scrollable){
+			this.setState({ 
+				currentPage: number,
+				blockScrollUp: true,
+				blockScrollDown: true
+			});
+			return;
+		}
 		this.setState({ 
 			currentPage: number,
 			blockScrollUp: false,
@@ -40,6 +49,20 @@ export default class Pagify extends Component {
 	render() {
 
 		return (
+			<>
+			<BottomNavigation
+				onChange={(event, newValue) => {
+					this.setState({
+						currentPage: newValue
+					})
+				}}
+				className="bottom-navigation"
+				showLabels
+			>
+				{_.map(this.props.children, (child => (
+					<BottomNavigationAction key = {child.props.label} label={child.props.label} icon={child.props.icon} />
+				)))}
+			</BottomNavigation>
 			<ReactPageScroller
 				pageOnChange={this.handlePageChange}
 				customPageNumber={this.state.currentPage}
@@ -53,6 +76,7 @@ export default class Pagify extends Component {
 					</Page>
 				}))}	
 			</ReactPageScroller>
+			</>
 			
 		)
 	}

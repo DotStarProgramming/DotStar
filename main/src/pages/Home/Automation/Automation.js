@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { FancyList, Headline } from "../../sharedComponents"
-import { Brand } from '../../smallComponents'
+import { FancyList } from '../../../sharedComponents'
+import { Brand } from "../../../smallComponents"
 import { Container, Typography } from "@material-ui/core"
-import Page from '../../sharedComponents/Page'
 
 export default class Automation extends Component {
     render() {

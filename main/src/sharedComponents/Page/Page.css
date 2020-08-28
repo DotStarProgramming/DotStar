@@ -2,12 +2,15 @@
     height: 100% !important;
     width: 100vw !important;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .page-absolute{
     height: 100vh !important;
     width: 100vw !important;
     overflow: hidden;
+    display: flex;
 }
 
 .page::-webkit-scrollbar {
@@ -19,4 +22,11 @@
 .page::-webkit-scrollbar-thumb {
     background-color: var(--default-primary);
     border-radius: 9999px;
+}
+
+.spacer-top{
+    flex: 2;
+}
+.spacer-bottom{
+    flex: 4;
 }

@@ -11,8 +11,10 @@ export default class Page extends Component {
 		}
 
 		return (
-			<div onScroll={this.props.onScroll} className={this.props.absolute ? "page-absolute" : "page"} style={pageStyle}>
+			<div onScroll={this.props.onScroll} onWheel={this.props.onWheel} className={this.props.absolute ? "page-absolute" : "page"} style={pageStyle}>
+				<div className="spacer-top"></div>
 				{this.props.children}
+				<div className="spacer-bottom"></div>
 			</div>
 		)
 	}
