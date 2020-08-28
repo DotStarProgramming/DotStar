@@ -17,6 +17,13 @@ export default class Pagify extends Component {
     }
 
     handlePageChange = number => {
+		if(number > this.props.children.length - 1){
+			number = this.props.children.length - 1
+		}
+		if(number < 0){
+			number = 0
+		}
+
 		if(this.props.children[number].props.scrollable){
 			this.setState({ 
 				currentPage: number,
