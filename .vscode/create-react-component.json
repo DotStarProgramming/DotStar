@@ -1,0 +1,14 @@
+{
+	"defaultDir": "src/components",
+	"componentType": "class",
+	"openAfterCreate": true,
+	"addCSS": true,
+	"addConstructor": false,
+	"language": "en",
+	"componentNameStyle": {
+		"styleInExplorer": "camel",
+		"bigFirstLetterInExplorer": true,
+		"styleInCode": "camel",
+		"bigFirstLetterInCode": true
+	}
+}

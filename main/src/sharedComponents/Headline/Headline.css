@@ -1,0 +1,22 @@
+.headline {
+    padding-bottom: 2em;
+}
+
+.headline img {
+    height: min(30em, 80vw);
+    width: 100%;
+    object-fit: cover;
+}
+
+.headline p {
+    text-shadow: 1px 1px var(--primary-text);
+}
+
+.headline h3 {
+    text-shadow: 1px 1px var(--primary-text);
+}
+
+.invert{
+    color: var(--primary-text);
+    text-shadow: 4px 4px var(--text-primary);
+}

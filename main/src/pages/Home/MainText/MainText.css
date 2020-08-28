@@ -1,0 +1,34 @@
+.spacer{
+    height: calc((100vh - 45vw)/2);
+}
+
+.main-text{
+    margin: 1vw;
+    font-size: 13vw !important;
+    height: 100vh;
+    width: auto;
+    overflow: hidden;
+    transition: all 1000ms;
+    text-align: left;
+}
+
+.main-body{
+    max-height: 0;
+    overflow: hidden;
+}
+
+.main-body-enter {
+    max-height: 10000vh;
+}
+
+.main-body-enter-active {
+    max-height: 10000vh;
+}
+
+.main-body-enter-done {
+    max-height: 10000vh;
+}
+
+.white-cursor{
+    color: #FFFFFF;
+}

@@ -7,6 +7,20 @@
   --primary-text: #212121;
   --secondary-text: #757575;
   --divider: #BDBDBD;
+  --list-highlight: #DDDDDD;
+}
+
+/* Apply to Everything */
+
+body>*{
+  text-align: center;
+}
+
+.bottom-navigation{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
 }
 
 .primary-text{
@@ -15,4 +29,73 @@
 
 .accent-text{
   color: var(--default-primary);
+}
+
+.center {
+  text-align: center;
+}
+
+.left{
+  text-align: left;
+}
+
+.right{
+  text-align: right;
+}
+
+.justify{
+  text-align: justify;
+}
+
+.normal-p p{
+  text-align: left;
+}
+
+.header{
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;  
+}
+
+.underline:after{
+  transition: all 0.3s;
+  content : "";
+  position: absolute;
+  left    : 25%;
+  bottom  : 0;
+  height  : 1px;
+  width   : 50%;
+  border-bottom:1px solid var(--divider);
+}
+
+.underline:hover:after{
+  transition: all 0.3s;
+  content : "";
+  position: absolute;
+  left    : 10%;
+  bottom  : 0;
+  height  : 1px;
+  width   : 80%;
+  border-bottom:1px solid var(--default-primary);
+}
+
+.left.underline:after{
+  transition: all 0.3s;
+  content : "";
+  position: absolute;
+  left    : 0%;
+  bottom  : 0;
+  height  : 1px;
+  width   : 80%;
+  border-bottom:1px solid var(--divider);
+}
+
+.left.underline:hover:after{
+  transition: all 0.3s;
+  content : "";
+  position: absolute;
+  left    : 0%;
+  bottom  : 0;
+  height  : 1px;
+  width   : 100 %;
+  border-bottom:1px solid var(--default-primary);
 }

@@ -1,0 +1,22 @@
+.page {
+    height: 100% !important;
+    width: 100vw !important;
+    overflow: auto;
+}
+
+.page-absolute{
+    height: 100vh !important;
+    width: 100vw !important;
+    overflow: hidden;
+}
+
+.page::-webkit-scrollbar {
+    width: 0em;
+}
+
+.page::-webkit-scrollbar-track {}
+
+.page::-webkit-scrollbar-thumb {
+    background-color: var(--default-primary);
+    border-radius: 9999px;
+}

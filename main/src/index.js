@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "./scss/custom.scss"
+import 'react-vertical-timeline-component/style.min.css';
 
 //import { Provider } from 'react-redux';
 //import configureStore from "./redux/configureStore";

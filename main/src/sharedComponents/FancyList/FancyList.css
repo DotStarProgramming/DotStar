@@ -1,0 +1,12 @@
+.fancy-list-item{
+    padding: 1rem;
+    border-radius: 9999px;
+}
+
+.fancy-list-item-content{
+    padding-top: 0.5rem;
+}
+
+.list-item-image{
+    width:100%;
+}
