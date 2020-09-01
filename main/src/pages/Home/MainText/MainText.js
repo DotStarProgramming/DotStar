@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import './MainText.css';
-import { CSSTransition } from "react-transition-group";
-import Page from '../../../sharedComponents/Page';
 
 export default class MainText extends Component {
 	constructor(props) {
@@ -21,7 +19,7 @@ export default class MainText extends Component {
 
 		this.fps = 12;
 		this.delay = 0; //seconds
-		this.delay2 = 2;
+		this.delay2 = 1;
 	}
 
 	animateCursor = () => {
@@ -39,11 +37,9 @@ export default class MainText extends Component {
 		this.setState({
 			done: true
 		})
-		window.scrollTo({
-			top: window.innerHeight,
-			left: 0,
-			behavior: 'smooth'
-		});
+		if(this.props.currentPage === 0){
+			this.props.setPage(1);
+		}
 	}
 
 	animate = () => {

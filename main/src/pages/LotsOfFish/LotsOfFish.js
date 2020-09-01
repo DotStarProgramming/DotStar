@@ -39,32 +39,34 @@ export default class LotsOfFish extends Component {
         }
     }
 
+    onCanvasTouchMove( event ){
+        this.onCanvasMouseMove(event.touches[0]);
+    }
+
     fillVelocityTexture( texture ) {
 
         var theArray = texture.image.data;
 
         for ( var k = 0, kl = theArray.length; k < kl; k += 4 ) {
-            var x = 1 - 0.5;
-            var y = 0;
-            var z = 1 - 0.5;
 
-            theArray[ k + 0 ] = x * 10;
-            theArray[ k + 1 ] = y * 10;
-            theArray[ k + 2 ] = z * 10;
+            theArray[ k + 0 ] = 10;
+            theArray[ k + 1 ] = 0;
+            theArray[ k + 2 ] = 10;
             theArray[ k + 3 ] = 1;
         }
     }
 
     fillPositionTexture( texture ) {
         var theArray = texture.image.data;
+        let bunchCoefficient = 0.3;
         for ( var k = 0, kl = theArray.length; k < kl; k += 4 ) {
             var x = Math.random() * this.BOUNDS - this.BOUNDS_HALF;
             var y = 0;
             var z = Math.random() * this.BOUNDS - this.BOUNDS_HALF;;
 
-            theArray[ k + 0 ] = x;
-            theArray[ k + 1 ] = y;
-            theArray[ k + 2 ] = z;
+            theArray[ k + 0 ] = x * bunchCoefficient;
+            theArray[ k + 1 ] = y * bunchCoefficient;
+            theArray[ k + 2 ] = z * bunchCoefficient;
             theArray[ k + 3 ] = 1;
         }
     }
@@ -173,7 +175,7 @@ export default class LotsOfFish extends Component {
             if ( dist < preyRadius ) {
 
                 f = ( distSquared / preyRadiusSq - 1.0 ) * delta * 100.;
-                vec3 velocityXYZ = normalize( dir ) * f * -1.0;
+                vec3 velocityXYZ = normalize( dir ) * f * 1.0;
                 velocity += vec3(velocityXYZ.x, 0, velocityXYZ.z);
                 limit += 5.0;
             }
@@ -539,7 +541,7 @@ export default class LotsOfFish extends Component {
         let _this = this;
 
         window.setTimeout(function () {
-            _this.camera = new THREE.PerspectiveCamera(75, _this.container.current.offsetWidth / _this.container.current.offsetHeight, 0.1, 10000);
+            _this.camera = new THREE.PerspectiveCamera(75, _this.container.current.offsetWidth / _this.container.current.offsetHeight, 10, 10000);
             _this.camera.position.set(0, 20, 100);
             _this.renderer = new THREE.WebGLRenderer();
             _this.renderer.setClearColor("#FFFFFF");
@@ -548,6 +550,7 @@ export default class LotsOfFish extends Component {
             _this.controls.target = new THREE.Vector3(0, 0, 0);
             _this.controls.enablePan = false;
             _this.controls.maxDistance = _this.BOUNDS_HALF * 0.5;
+            _this.controls.maxPolarAngle = Math.PI/2 - 0.25;
 
             _this.renderer.setSize(_this.container.current.offsetWidth, _this.container.current.offsetHeight);
             _this.container.current.appendChild(_this.renderer.domElement);
@@ -560,7 +563,7 @@ export default class LotsOfFish extends Component {
 
     render() {
         return (
-            <div className="full" ref={this.container} onMouseMove={(e) => this.onCanvasMouseMove(e)}>
+            <div className="horse-container" ref={this.container} onMouseMove={(e) => this.onCanvasMouseMove(e)} onTouchStart={(e) => this.onCanvasTouchMove(e)} onTouchMove={(e) => this.onCanvasTouchMove(e)}>
 
             </div>
         )

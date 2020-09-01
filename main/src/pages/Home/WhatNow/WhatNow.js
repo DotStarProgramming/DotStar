@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 
 import './WhatNow.css';
-import { Button, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import {Settings} from "@material-ui/icons";
 import { Brand } from '../../../smallComponents';
-import Page from '../../../sharedComponents/Page';
 
 export default class WhatNow extends Component {
 	render() {
@@ -60,9 +59,6 @@ export default class WhatNow extends Component {
 				</VerticalTimelineElement>
 				
 				</VerticalTimeline>
-				<Button href="/quote">
-					Request a Free Consultation
-				</Button>
 			</>
 		)
 	}

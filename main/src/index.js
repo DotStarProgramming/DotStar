@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 
 import "./scss/custom.scss"
 import 'react-vertical-timeline-component/style.min.css';
+import 'react-awesome-slider/dist/styles.css';
 
 //import { Provider } from 'react-redux';
 //import configureStore from "./redux/configureStore";

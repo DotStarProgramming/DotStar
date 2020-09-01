@@ -1,0 +1,28 @@
+.page-container{
+    height: 100vh;
+    width: 100vw;
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+.page-container::-webkit-scrollbar {
+    width: 0em;
+}
+
+.page-container::-webkit-scrollbar-track {}
+
+.page-container::-webkit-scrollbar-thumb {
+    background-color: var(--default-primary);
+    border-radius: 9999px;
+}
+
+.large-container{
+    position: absolute;
+    transition: all 1000ms;
+}
+
+.extra-scroll{
+    width: 100%;
+    min-height: 112px;
+}

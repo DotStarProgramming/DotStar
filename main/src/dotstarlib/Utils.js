@@ -17,4 +17,14 @@ export default class Utils{
         return !!navigator.userAgent.match(/Safari/i) && !navigator.userAgent.match(/Chrome/i);
     
     }
+
+    static clamp(num, min, max){
+        if(num > max){
+            return max;
+        }
+        if(num < min){
+            return min;
+        }
+        return num;
+    }
 }

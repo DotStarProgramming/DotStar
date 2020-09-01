@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 
 import "./Consult.css"
-import { Container, Typography, TextField, Grid, Box, FormControl, InputLabel, Input, InputAdornment, makeStyles, CssBaseline, Avatar, FormControlLabel, Checkbox, Button, Link, withStyles } from '@material-ui/core'
-import { Email, AccountCircle } from '@material-ui/icons'
+import { Container, Typography, TextField, Grid, Button, withStyles, Paper } from '@material-ui/core'
 
 const styles = theme => ({
     paper: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        padding: "2em"
     },
     avatar: {
         margin: theme.spacing(1),
@@ -27,7 +27,7 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
         const { classes } = this.props;
         return (
             <Container maxWidth="xs">
-                <div className={classes.paper}>
+                <Paper className={classes.paper}>
                     <Typography variant="h3" className="header">Request a Free 1 Hour Consultation</Typography>
                     <form className={classes.form} noValidate>
                         <Grid container spacing={2}>
@@ -60,7 +60,7 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
                                     required
                                     fullWidth
                                     name="description"
-                                    label="Describe your required services or project idea"
+                                    label="Describe your project"
                                     type="description"
                                     id="description"
                                     autoComplete="description"
@@ -77,7 +77,7 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
                             Send
                         </Button>
                     </form>
-                </div>
+                </Paper>
             </Container>
         )
     }
