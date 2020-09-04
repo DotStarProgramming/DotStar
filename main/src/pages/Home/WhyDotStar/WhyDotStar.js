@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 
 import './WhyDotStar.css';
 import { Brand } from '../../../smallComponents';
-import { FancyList } from "../../../sharedComponents";
 import { Typography, Container, Link, Box, Paper, withStyles} from '@material-ui/core';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
-import Automation from '../Automation';
 
 const styles = theme => ({
     paper: {
@@ -35,10 +33,15 @@ const styles = theme => ({
     carouselItem2: {
         background: "url(images/automation.jpg)",
         backgroundSize: "cover",
-        backgroundPosition: "bottom center",
+        backgroundPosition: "top center",
     },
     carouselItem3: {
         background: "url(images/online.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+    },
+    carouselItem4: {
+        background: "url(images/consulting.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center center",
     },
@@ -49,10 +52,19 @@ const styles = theme => ({
 
 export default withStyles(styles, { withTheme: true })(class WhyDotStar extends Component {
     render() {
-        const { classes } = this.props;
+        const { classes, setPage } = this.props;
 
         return (
             <AwesomeSlider className={classes.carousel}>
+                <div className={`${classes.carouselItem}  ${classes.carouselItem4}`}>
+                    <Box className={classes.flex}></Box>
+                    <Container maxWidth="md">
+                        <Paper elevation={5} className={classes.paper}>
+                            <Typography variant="h3" className="header">You think it, we build it</Typography>
+                            <Typography variant="h6"><Brand /> turns ideas, into finished products. Just tell us what you need, whether it be a mobile/desktop app, website, or a way to automate any process. Find out what we can do for you with a <Link href="#" onClick={() => setPage(5)}>Free 1 Hour Consultation</Link></Typography>
+                        </Paper>
+                    </Container>
+                </div>
                 <div className={`${classes.carouselItem}  ${classes.carouselItem2}`}>
                     <Box className={classes.flex}></Box>
                     <Container maxWidth="md">

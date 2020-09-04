@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import "./Home.css"
-import MainText from './MainText/MainText';
-import WhatNow from './WhatNow/WhatNow';
-import Automation from './Automation';
+import MainText from './MainText';
+import WhatNow from './WhatNow';
 import Apps from "./Apps"
-import AboutUs from "./AboutUs"
+import Technologies from "./Technologies"
 
-import { Settings, Web, Devices, Forward, Info, Person} from "@material-ui/icons";
+import { Devices, Forward, Info, Person, Code} from "@material-ui/icons";
 import { Home as HomeIcon} from "@material-ui/icons";
 import Pagify from '../../sharedComponents/Pagify/Pagify';
 import WhyDotStar from './WhyDotStar/WhyDotStar';
 import Consult from './Consult';
-import Websites from './Websites';
 
 export default class Home extends Component {
     
@@ -25,7 +23,7 @@ export default class Home extends Component {
                 <Pagify>
                     <MainText absolute icon={<HomeIcon />} label="Home" seen={this.props.seen} />
                     <WhyDotStar icon={<Info />} label="About" />
-                    <AboutUs icon={<Info />} label="About" />
+                    <Technologies icon={<Code />} label="Technologies" />
                     <Apps icon={<Devices />} label="Platforms"/>
                     <WhatNow icon={<Forward />} label="What Now"/>
                     <Consult icon={<Person />} label="Free Consultation" />

@@ -9,7 +9,7 @@
     /* The padding depends on the width, not on the height, so with a padding-bottom of 100% you will get a square */
 }
 
-.equal-aspect-container img {
+.equal-aspect-container .circle {
     position: absolute;
     /* Take your picture out of the flow */
     top: 0;

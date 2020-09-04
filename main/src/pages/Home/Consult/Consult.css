@@ -1,3 +1,27 @@
 .consult-form{
     width: 100%;
 }
+.anim-form-enter {
+    margin-top: 30px;
+    opacity: .01;
+}
+.anim-form-enter-active {
+    margin-top: 30px;
+    opacity: .01;
+    margin-top: 0px;
+    opacity: 1;
+    transition: opacity .5s ease, margin .5s ease;
+}
+
+.anim-form-leave {
+    margin-top: 0px;    
+    opacity: 1;
+}
+
+.anim-form-leave-active {
+    margin-top: 0px;    
+    opacity: 1;
+    margin-top: -30px;
+    opacity: .01;
+    transition: opacity .3s ease, margin .5s ease;
+}

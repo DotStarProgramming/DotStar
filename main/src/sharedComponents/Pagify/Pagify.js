@@ -5,6 +5,7 @@ import './Pagify.css';
 import Page from '../Page';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import Utils from '../../dotstarlib/Utils';
+import ResponsiveNav from '../ResponsiveNav';
 
 export default class Pagify extends Component {
 	constructor(props) {
@@ -15,10 +16,40 @@ export default class Pagify extends Component {
 			currentPage: 0,
 			animLocked: false
 		};
+		this.lastTouch = null;
+		this.lastFire = new Date();
+		this.fireRate = 20;
 	}
 
+	handleOnTouchStart = (e) => {
+		this.lastTouch = e.touches[0]
+	}
+
+	handleOnTouchMove = (e) => {
+		var cFire = new Date();
+
+		if (true){            
+			let thisTouch = e.touches[0];
+
+			let dx = thisTouch.pageX - this.lastTouch.pageX;
+			let dy = thisTouch.pageY - this.lastTouch.pageY;
+
+			this.lastTouch = thisTouch;
+
+			let vertical = Math.abs(dx) < Math.abs(dy);
+
+			if(vertical){
+				let simEvent = {
+					deltaY: -dy
+				}
+				this.handleParentWheel(simEvent);
+			}
+			this.lastFire = cFire;
+		}
+	}
+
+
 	handleParentWheel = (e) => {
-		console.log(e);
 		let nextPage = this.state.currentPage;
 		if(e.deltaY > 0){
 			nextPage = this.state.currentPage + 1;
@@ -38,19 +69,17 @@ export default class Pagify extends Component {
 		let cantUp = e.deltaY < 0 && upBlocked;
 		let cantDown = e.deltaY > 0 && downBlocked;
 
-		let shouldScroll = notAnimating && !cantUp && !cantDown;
+		let shouldScroll = notAnimating && !cantUp && !cantDown && !this.animLocked;
 
 		if(shouldScroll){
 			this.setState({
 				currentPage: nextPage,
-				animLocked: true
 			})
+			this.animLocked = true;
 		}
 		else{
 			if(notAnimating){
-				this.setState({
-					animLocked: false
-				})
+				this.animLocked = false;
 			}
 		}
 	}
@@ -79,14 +108,14 @@ export default class Pagify extends Component {
 			<>
 			<BottomNavigation
 				onChange={(event, newValue) => this.setPage(newValue)}
-				className="bottom-navigation"
+				component={ResponsiveNav}
 				showLabels
 			>
 				{_.map(this.props.children, (child => (
 					<BottomNavigationAction key = {child.props.label} label={child.props.label} icon={child.props.icon} />
 				)))}
 			</BottomNavigation>
-			<div className = "page-container" onWheel={this.handleParentWheel} onTouchMove={this.handleParentWheel}>
+			<div className = "page-container" onWheel={this.handleParentWheel} onTouchStart={this.handleOnTouchStart} onTouchMove={this.handleOnTouchMove}>
 				<div ref={this.largeContainerRef} className="large-container" style = {{height: "calc(100vh * " + this.props.children.length + ")", top: "calc(100vh * -" + this.state.currentPage + ")"}}>
 					{_.map(this.props.children, (child => {
 						let keyIndex = this.props.children.indexOf(child);

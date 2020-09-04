@@ -1,0 +1,7 @@
+.stars{
+    color: var(--default-primary);
+}
+
+.antistars{
+    color: var(--secondary-text);
+}

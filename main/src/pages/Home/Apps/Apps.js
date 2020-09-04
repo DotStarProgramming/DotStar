@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import _ from "lodash";
-import { CircleImage, Brand } from '../../../smallComponents';
+import { CircleImage } from '../../../smallComponents';
 import { ResponsiveGrid } from "../../../sharedComponents";
 import { Container, Typography, withStyles, Paper } from "@material-ui/core";
-import { CallMissedSharp } from '@material-ui/icons';
 
 const styles = theme => ({
     paper: {
@@ -58,11 +57,11 @@ export default withStyles(styles, { withTheme: true })(class Apps extends Compon
                     <Typography variant="h3" className="header">Cross-platform Development</Typography>
                     <Typography variant="h6">Whether you have a mobile app idea, or just want a quick way for your employees to submit field reports</Typography>
                 </Paper>
-                <ResponsiveGrid>
+                <ResponsiveGrid xs={6} lg={4}>
                     {_.map(platforms, (platform) => (
                         <div key={platform.title}>
                             <CircleImage width={60} src={platform.image}></CircleImage>
-                            <div>{platform.title}</div>
+                            <Typography variant="subtitle1">{platform.title}</Typography>
                         </div>
                     ))}
                 </ResponsiveGrid>
