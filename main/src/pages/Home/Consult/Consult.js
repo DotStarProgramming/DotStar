@@ -35,6 +35,8 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
     handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
+        var object = {};
+        data.forEach((value, key) => {object[key] = value});
         this.setState({
             submitState: "submitting"
         })
@@ -43,20 +45,20 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
 
         fetch('http://localhost:80/api/request-consult', {
             method: 'POST',
-            body: data,
+            body: JSON.stringify(object),
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(data.message)
-                    _this.setState({
-                        submitState: "done"
-                    })
-                }
-                else {
-                    console.log("not success!")
-                }
-            })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(data.message)
+                _this.setState({
+                    submitState: "done"
+                })
+            }
+            else {
+                console.log("not success!")
+            }
+        })
     }
 
     render() {
