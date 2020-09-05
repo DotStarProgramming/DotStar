@@ -43,7 +43,7 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
 
         let _this = this;
 
-        fetch('http://localhost:80/api/request-consult', {
+        fetch(`http://${window.location.hostname}:80/api/request-consult`, {
             method: 'POST',
             body: JSON.stringify(object),
         })
