@@ -3,7 +3,6 @@ const cors = require('cors')
 const path = require('path');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
-const http = require('http');
 const https = require('https');
 const fs = require('fs');
 
