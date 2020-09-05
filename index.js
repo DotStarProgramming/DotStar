@@ -3,10 +3,23 @@ const cors = require('cors')
 const path = require('path');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const http = require('http');
+const https = require('https');
 
 const app = express();
 
 require('dotenv').config()
+
+// Certificate
+const privateKey = fs.readFileSync(process.env.PRIV, 'utf8');
+const certificate = fs.readFileSync(process.env.CERT, 'utf8');
+const ca = fs.readFileSync(process.env.CHAIN, 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
 
 var corsOptions = {
     origin: 'http://localhost:3000',
@@ -91,7 +104,8 @@ app.get("*", (req, res) => {
     res.sendFile('index.html', { root });
 })
 
-const port = process.env.PORT || 3000;
-app.listen(port, "0.0.0.0");
+const port = 443;
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(port);
 
 console.log('App is listening on port ' + port);
