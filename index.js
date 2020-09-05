@@ -110,10 +110,10 @@ httpsServer.listen(443);
 
 console.log('App is listening on port ' + 443);
 
-var httpServer = http.createServer();
-httpServer.get('*', function(req, res) {  
-    res.redirect('https://' + req.headers.host + req.url);
-})
-httpServer.listen(80);
+// Redirect from http port 80 to https
+http.createServer(function (req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}).listen(80);
 
 console.log('Https redirect is listening on port ' + 80);
