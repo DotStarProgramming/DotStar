@@ -3,6 +3,7 @@ const cors = require('cors')
 const path = require('path');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const http = require('http');
 const https = require('https');
 const fs = require('fs');
 
@@ -109,10 +110,10 @@ httpsServer.listen(443);
 
 console.log('App is listening on port ' + 443);
 
-var http = express.createServer();
-http.get('*', function(req, res) {  
+var httpServer = http.createServer();
+httpServer.get('*', function(req, res) {  
     res.redirect('https://' + req.headers.host + req.url);
 })
-http.listen(80);
+httpServer.listen(80);
 
 console.log('Https redirect is listening on port ' + 80);
