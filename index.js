@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const http = require('http');
 const https = require('https');
+const fs = require('fs');
 
 const app = express();
 
@@ -104,8 +105,15 @@ app.get("*", (req, res) => {
     res.sendFile('index.html', { root });
 })
 
-const port = 443;
 const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(port);
+httpsServer.listen(443);
 
-console.log('App is listening on port ' + port);
+console.log('App is listening on port ' + 443);
+
+var http = express.createServer();
+http.get('*', function(req, res) {  
+    res.redirect('https://' + req.headers.host + req.url);
+})
+http.listen(80);
+
+console.log('Https redirect is listening on port ' + 80);
