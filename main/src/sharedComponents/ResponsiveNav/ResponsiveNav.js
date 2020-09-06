@@ -10,7 +10,7 @@ export default class ResponsiveNav extends Component {
 			<div className="bottom-navigation">
 				<Grid container spacing={0} className="justify-center">
 					{_.map(this.props.children, (child) => (
-						<Grid key={child.key} item xs={3} sm={1}>
+						<Grid key={child.key} item xs={4} sm={1}>
 							{child}
 						</Grid>
 					))}

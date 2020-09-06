@@ -47,7 +47,6 @@ app.post('/api/request-consult', function (req, res) {
     });
 
     let body = JSON.parse(req.body);
-    console.log(process.env.EMAIL_USER_NAME);
     res.json({
         success: true,
         message: req.description

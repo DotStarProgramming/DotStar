@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import "./Consult.css"
-import { Container, Typography, TextField, Grid, Button, withStyles, Paper, Fade } from '@material-ui/core'
+import { Container, Typography, TextField, Grid, Button, withStyles, Paper, Fade, Link } from '@material-ui/core'
 import { OfficeEmail } from "../../../smallComponents/Brand"
 
 const styles = theme => ({
@@ -50,13 +50,14 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                console.log(data.message)
                 _this.setState({
                     submitState: "done"
                 })
             }
             else {
-                console.log("not success!")
+                _this.setState({
+                    submitState: "error"
+                })
             }
         })
     }
@@ -112,7 +113,8 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
                     className={classes.submit}
                 >
                     Send
-            </Button>
+                </Button>
+                <Typography variant="h6" className="header">Alternatively, email <Link href="mailto:office@dotstar.ca">office@dotstar.ca</Link> directly</Typography>
             </form>
         </Paper>
 
@@ -121,10 +123,15 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
             <Typography variant="h6" className="header">You should recieve a confirmation email, if you haven't recieved one, please check your spam folder for mail from <OfficeEmail /></Typography>
         </Paper>
 
+        let error = <Paper className={classes.paper}>
+            <Typography variant="h3" className="header">There was an error in submitting your request</Typography>
+            <Typography variant="h6" className="header">Feel free to email office@dotstar.ca directly for a free consultation<OfficeEmail /></Typography>
+        </Paper>
+
         return (
             <Container maxWidth="xs">
                 <Fade in={this.state.submitState === "waiting" || this.state.submitState === "done"} timeout={1000}>
-                    {this.state.submitState === "done" ? done : form}
+                    {this.state.submitState === "done" ? (this.state.submitState === "error" ? error : done) : form}
                 </Fade>
 
             </Container>

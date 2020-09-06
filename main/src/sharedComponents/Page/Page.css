@@ -1,29 +1,9 @@
 .page{
     background-color: #f5fafa;
-}
-
-.page-relative {
-    height: calc(100vh - 2*min(3vh, 3vw)) !important;
-    width: calc(100vw - 2*min(3vh, 3vw)) !important;
     overflow: auto;
     display: flex;
     flex-direction: column;
-    padding: min(3vh, 3vw);
-}
-
-.no-margin{
-    height: 100vh !important;
-    width: 100vw !important;
-    padding: 0px;
-}
-
-.page-absolute{
-    height: calc(100vh - 2*min(3vh, 3vw)) !important;
-    width: calc(100vw - 2*min(3vh, 3vw)) !important;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    padding: min(3vh, 3vw);
+    scroll-behavior: smooth;
 }
 
 .page::-webkit-scrollbar {

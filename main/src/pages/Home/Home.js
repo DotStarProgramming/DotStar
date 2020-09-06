@@ -21,8 +21,8 @@ export default class Home extends Component {
         return (
             <>
                 <Pagify>
-                    <MainText absolute icon={<HomeIcon />} label="Home" seen={this.props.seen} />
-                    <WhyDotStar icon={<Info />} label="About" />
+                    <MainText icon={<HomeIcon />} label="Home" seen={this.props.seen} />
+                    <WhyDotStar nospacertop icon={<Info />} label="About" />
                     <Technologies icon={<Code />} label="Technologies" />
                     <Apps icon={<Devices />} label="Platforms"/>
                     <WhatNow icon={<Forward />} label="What Now"/>

@@ -5,7 +5,6 @@
 .main-text{
     margin: 1vw;
     font-size: 13vw !important;
-    height: 100vh;
     width: auto;
     overflow: hidden;
     transition: all 1000ms;

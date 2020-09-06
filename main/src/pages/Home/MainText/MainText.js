@@ -23,13 +23,9 @@ export default class MainText extends Component {
 	}
 
 	animateCursor = () => {
-		let _this = this;
 		this.setState({
 			cursorVisible: !this.state.cursorVisible
 		})
-		window.setTimeout(function () {
-			_this.animateCursor();
-		}, 500);
 	}
 
 
@@ -90,12 +86,21 @@ export default class MainText extends Component {
 				_this.animate();
 			}, this.delay * 1000);
 		}
-		this.animateCursor();
+
+		let _this = this;
+		this.cursorInterval = window.setInterval(function () {
+			_this.animateCursor();
+		}, 500);
+	}
+
+	componentWillUnmount(){
+		window.clearInterval(this.cursorInterval);
 	}
 
 	render() {
 		let content = this.props.seen ? this.characters : this.state.shownText
-		return <div className={"main-text"}>
+		console.log(this.props.height);
+		return <div className={"main-text"} style={{height: this.props.height}}>
 			<div className={"spacer"}>&nbsp;</div>
 			&gt;
 			<span dangerouslySetInnerHTML={{ __html: content }}></span>

@@ -4,7 +4,6 @@ import './WhyDotStar.css';
 import { Brand } from '../../../smallComponents';
 import { Typography, Container, Link, Box, Paper, withStyles} from '@material-ui/core';
 import AwesomeSlider from 'react-awesome-slider';
-import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
 
 const styles = theme => ({
     paper: {
@@ -15,9 +14,6 @@ const styles = theme => ({
         marginBottom: "1em",
         textAlign: "center",
         backgroundColor: "#FFFFFFE0"
-    },
-    carousel:{
-        minHeight: "calc(100% - 112px)"
     },
     carouselItem: {
         height: "100%",
@@ -55,7 +51,7 @@ export default withStyles(styles, { withTheme: true })(class WhyDotStar extends 
         const { classes, setPage } = this.props;
 
         return (
-            <AwesomeSlider className={classes.carousel}>
+            <AwesomeSlider style={{height: (this.props.height - 172)}}>
                 <div className={`${classes.carouselItem}  ${classes.carouselItem4}`}>
                     <Box className={classes.flex}></Box>
                     <Container maxWidth="md">
