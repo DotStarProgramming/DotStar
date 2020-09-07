@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import _ from "lodash";
-import { CircleImage } from '../../../smallComponents';
+import { CircleImage, Brand } from '../../../smallComponents';
 import { ResponsiveGrid } from "../../../sharedComponents";
 import { Container, Typography, withStyles, Paper } from "@material-ui/core";
 
@@ -55,7 +55,7 @@ export default withStyles(styles, { withTheme: true })(class Apps extends Compon
             <Container>
                 <Paper elevation={4} className={classes.paper}>
                     <Typography variant="h3" className="header">Cross-platform Development</Typography>
-                    <Typography variant="h6">Whether you have a mobile app idea, or just want a quick way for your employees to submit field reports</Typography>
+                    <Typography variant="h6"><Brand /> can create for any, or all, of the following platforms</Typography>
                 </Paper>
                 <ResponsiveGrid xs={6} lg={4}>
                     {_.map(platforms, (platform) => (

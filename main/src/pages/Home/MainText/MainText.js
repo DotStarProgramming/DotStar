@@ -21,15 +21,15 @@ export default class MainText extends Component {
 		this.delay = 0; //seconds
 		this.delay2 = 1;
 	}
-
+	
 	animateCursor = () => {
 		this.setState({
 			cursorVisible: !this.state.cursorVisible
 		})
 	}
 
-
-	animate2 = () => {
+	//Go to second page, if the user hasn't already interacted with the screen
+	animateDone = () => {
 		this.setState({
 			done: true
 		})
@@ -38,17 +38,21 @@ export default class MainText extends Component {
 		}
 	}
 
+
 	animate = () => {
 		let _this = this;
 
 		if (this.state.shownText === this.characters) {
+			//Go to next page 1 second after the animation is done
 			window.setTimeout(function () {
-				_this.animate2();
+				_this.animateDone();
 			}, this.delay2 * 1000);
 			return;
 		}
 
 		let curChar = this.characters.split("")[this.character]
+
+		//Skip over tags and html codes
 		if (curChar === "<") {
 			this.inTag = true;
 		}
@@ -62,6 +66,7 @@ export default class MainText extends Component {
 			this.inTag = false;
 		}
 
+		//If we're on a regular character, show one more letter
 		if (!this.inTag) {
 			this.setState({
 				shownText: this.characters.substring(0, this.character)
@@ -74,7 +79,7 @@ export default class MainText extends Component {
 			}, 1000 / this.fps);
 			return;
 		}
-
+		
 		this.character++;
 		this.animate();
 	}
@@ -99,7 +104,6 @@ export default class MainText extends Component {
 
 	render() {
 		let content = this.props.seen ? this.characters : this.state.shownText
-		console.log(this.props.height);
 		return <div className={"main-text"} style={{height: this.props.height}}>
 			<div className={"spacer"}>&nbsp;</div>
 			&gt;

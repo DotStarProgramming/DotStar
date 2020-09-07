@@ -51,6 +51,7 @@ export default withStyles(styles, { withTheme: true })(class WhyDotStar extends 
         const { classes, setPage } = this.props;
 
         return (
+            //This really is a nice, simple slider
             <AwesomeSlider style={{height: (this.props.height - 172)}}>
                 <div className={`${classes.carouselItem}  ${classes.carouselItem4}`}>
                     <Box className={classes.flex}></Box>
@@ -75,7 +76,7 @@ export default withStyles(styles, { withTheme: true })(class WhyDotStar extends 
                     <Container maxWidth="md">
                         <Paper elevation={5} className={classes.paper}>
                             <Typography variant="h3" className="header">Bring your idea online</Typography>
-                            <Typography variant="h6"><Brand />'s ultra modern and sleek web design can bring your ideas online. Anything from a simple portfolio site, to a complex data-processing portal, to <Link href="horses">simply thousands of horses</Link> </Typography>
+                            <Typography variant="h6"><Brand />'s ultra modern and sleek web design can bring your ideas online. Anything from a simple portfolio site, to a complex data-processing portal</Typography>
                         </Paper>
                     </Container>
                 </div>
@@ -84,7 +85,7 @@ export default withStyles(styles, { withTheme: true })(class WhyDotStar extends 
                     <Container maxWidth="md">
                         <Paper elevation={5} className={classes.paper}>
                             <Typography variant="h3" className="header">Track your project every step of the way</Typography>
-                            <Typography variant="h6">At the start of development. You'll be given a Trello link through with you can see exactly where each part of your project is</Typography>
+                            <Typography variant="h6">At the start of development. You'll be given a Trello link through which you can see exactly where each part of your project is</Typography>
                         </Paper>
                     </Container>
                 </div>

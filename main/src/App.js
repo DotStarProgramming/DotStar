@@ -8,7 +8,7 @@ import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import './App.css';
 
 import { ThemeProvider } from "@material-ui/core";
-import { Home, LotsOfFish } from "./pages";
+import { Home, Horses } from "./pages";
 
 function App() {
 
@@ -27,7 +27,7 @@ function App() {
 			<Router>
 				<Switch>
 					<Route path="/horses">
-						<LotsOfFish />
+						<Horses />
 					</Route>
 					<Route path="/home">
 						<Home seen={true} />

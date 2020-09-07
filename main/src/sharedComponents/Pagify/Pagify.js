@@ -20,7 +20,6 @@ export default class Pagify extends Component {
 		};
 		this.lastTouch = null;
 		this.animLocked = false;
-		window.addEventListener('resize', () => console.log(window.innerHeight));
 	}
 
 	heightMonitor
@@ -29,6 +28,7 @@ export default class Pagify extends Component {
 		this.lastTouch = e.touches[0]
 	}
 
+	//Basically just onWheel for mobile
 	handleOnTouchMove = (e) => {
 		let thisTouch = e.touches[0];
 
@@ -47,8 +47,12 @@ export default class Pagify extends Component {
 		}
 	}
 
-
+	//Logic for handling page turning
 	handleParentWheel = (e) => {
+
+		let scrollPadding = 2;
+
+		//turn page in direction of scroll
 		let nextPage = this.state.currentPage;
 		if (e.deltaY > 0) {
 			nextPage = this.state.currentPage + 1;
@@ -57,16 +61,21 @@ export default class Pagify extends Component {
 			nextPage = this.state.currentPage - 1;
 		}
 
+		//Clamp to not overscroll
 		nextPage = Utils.clamp(nextPage, 0, this.props.children.length - 1);
 
+		//Check if animation is done by checking if the top of the page is at the top of the screen
 		let notAnimating = Math.round(this.largeContainerRef.current.getBoundingClientRect().y) % Math.round(this.state.height) === 0;
 
+		//Is the element a scrolling element that's in the middle of scrolling itself?
 		let elem = this.state.pageRefs[this.state.currentPage].current;
-		let upBlocked = elem.scrollTop > 0;
-		let downBlocked = elem.scrollTop + this.state.height < elem.scrollHeight;
+		let upBlocked = elem.scrollTop > scrollPadding;
+		let downBlocked = elem.scrollTop + this.state.height + scrollPadding < elem.scrollHeight;
 
 		let cantUp = e.deltaY < 0 && upBlocked;
 		let cantDown = e.deltaY > 0 && downBlocked;
+
+		console.log( elem.scrollTop, this.state.height, elem.scrollHeight);
 
 		let shouldScroll = notAnimating && !cantUp && !cantDown && !this.animLocked;
 
@@ -75,6 +84,7 @@ export default class Pagify extends Component {
 				currentPage: nextPage,
 				lastPage: this.state.currentPage
 			})
+			//Safety for 2 event triggers in one frame
 			this.animLocked = true;
 			this.animLockTimer = new Date();
 		}
@@ -90,6 +100,7 @@ export default class Pagify extends Component {
 		}
 	}
 
+	//One ref per child
 	static getDerivedStateFromProps(props, state) {
 		let refs = []
 		for (let i = 0; i < props.children.length; i++) {
@@ -98,6 +109,8 @@ export default class Pagify extends Component {
 		return { pageRefs: refs }
 	}
 
+	//Manually set page, this gets passed down to children so that they can set the page too
+	//Sets the scroll value to 0 when page is manually set
 	setPage = (newValue) => {
 		let newPageRefs = this.state.pageRefs
 		newPageRefs[newValue].current.scrollTop = 0
@@ -108,6 +121,7 @@ export default class Pagify extends Component {
 		})
 	}
 
+	//Quick and easy resize listener
 	updateDimensions = () => {
 		this.setState({ width: window.innerWidth, height: window.innerHeight });
 	}
@@ -121,9 +135,11 @@ export default class Pagify extends Component {
 	}
 
 	render() {
-		console.log(-this.state.currentPage*this.state.height);
 		return (
 			<>
+				{/* 
+				Bottom navigation with an icon for every element in the pagify component
+				*/}
 				<BottomNavigation
 					onChange={(event, newValue) => this.setPage(newValue)}
 					component={ResponsiveNav}
@@ -133,14 +149,24 @@ export default class Pagify extends Component {
 						<BottomNavigationAction key={child.props.label} label={child.props.label} icon={child.props.icon} />
 					)))}
 				</BottomNavigation>
+
+				{/* 
+				Handlers for scroll on desktop and mobile
+				Outer container just as big as screen
+				*/}
 				<div className="page-container" onWheel={this.handleParentWheel} onTouchStart={this.handleOnTouchStart} onTouchMove={this.handleOnTouchMove}>
+					{/* 
+					Inner container as big as all the pages
+					*/}
 					<div ref={this.largeContainerRef} className="large-container" style={{ hight: this.state.height*this.props.children.length, transform: `translateY(` + (-this.state.currentPage*this.state.height) + `px)`}}>
 						{_.map(this.props.children, (child => {
 							let keyIndex = this.props.children.indexOf(child);
+							//Give every child their height, width, the current page, and a method to set the current page
 							let childWithSetPage = React.cloneElement(child, { setPage: this.setPage, currentPage: this.state.currentPage, width: this.state.width, height: this.state.height });
 
 							return <Page style={{width: this.state.width, height: this.state.height}} pageRef={this.state.pageRefs[keyIndex]} key={keyIndex} {...child.props}>
 								{childWithSetPage}
+								{/*Spacer because navbar can be up to 112px tall*/}
 								{child.props.nospacer ? "" : <div className="extra-scroll">&nbsp;</div>}
 							</Page>
 						}))}

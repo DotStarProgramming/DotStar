@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import * as THREE from "three"
-import "./LotsOfFish.css"
+import "./Horses.css"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -8,7 +8,7 @@ import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRe
 
 import Utils from "../../dotstarlib/Utils";
 
-export default class LotsOfFish extends Component {
+export default class Horses extends Component {
     constructor(props) {
         super(props);
         this.container = React.createRef();

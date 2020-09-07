@@ -43,6 +43,7 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
 
         let _this = this;
 
+        //Submit a consultation request to the server.
         fetch(`${window.location.protocol}//${window.location.hostname}/api/request-consult`, {
             method: 'POST',
             body: JSON.stringify(object),
@@ -65,6 +66,7 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
     render() {
         const { classes } = this.props;
 
+        //Ripped mostly from a material-ui example form. Cause it looked good
         let form = <Paper className={classes.paper}>
             <Typography variant="h3" className="header">Request a Free 1 Hour Consultation</Typography>
             <form className={classes.form} onSubmit={this.handleSubmit}>
@@ -118,6 +120,7 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
             </form>
         </Paper>
 
+        //Done and Error messages
         let done = <Paper className={classes.paper}>
             <Typography variant="h3" className="header">Your request has been submitted</Typography>
             <Typography variant="h6" className="header">You should recieve a confirmation email, if you haven't recieved one, please check your spam folder for mail from <OfficeEmail /></Typography>
@@ -131,7 +134,10 @@ export default withStyles(styles, { withTheme: true })(class Consult extends Com
         return (
             <Container maxWidth="xs">
                 <Fade in={this.state.submitState === "waiting" || this.state.submitState === "done"} timeout={1000}>
-                    {this.state.submitState === "done" ? (this.state.submitState === "error" ? error : done) : form}
+                    {   
+                        //Switch on done, error, or neither
+                        this.state.submitState === "done" ? (this.state.submitState === "error" ? error : done) : form
+                    }
                 </Fade>
 
             </Container>
