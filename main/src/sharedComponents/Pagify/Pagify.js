@@ -4,7 +4,7 @@ import _ from "lodash";
 import './Pagify.css';
 import Page from '../Page';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
-import Utils from '../../dotstarlib/Utils';
+import {Utils} from "dotstarlib";
 import ResponsiveNav from '../ResponsiveNav';
 
 export default class Pagify extends Component {

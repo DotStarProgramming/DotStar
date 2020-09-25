@@ -6,7 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer.js';
 
-import Utils from "../../dotstarlib/Utils";
+import {Utils} from "dotstarlib";
 
 export default class Horses extends Component {
     constructor(props) {
