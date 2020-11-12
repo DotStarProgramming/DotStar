@@ -526,7 +526,7 @@ class Horses extends Component {
             this.raycaster.setFromCamera( this.mouse, this.camera );
 
             let intersects = this.raycaster.intersectObjects( [this.plane] );
-            if(intersects[0]){
+            if(intersects[0] && false){
                 if(this.velocityUniforms) this.velocityUniforms[ "predator" ].value.set(-intersects[0].point.z, intersects[0].point.y, intersects[0].point.x );
             }
             else{
@@ -559,7 +559,7 @@ class Horses extends Component {
         let _this = this;
 
         window.setTimeout(function () {
-            _this.camera = new THREE.PerspectiveCamera(75, _this.container.current.offsetWidth / _this.container.current.offsetHeight, 10, 10000);
+            _this.camera = new THREE.PerspectiveCamera(75, _this.container.current.offsetWidth / _this.container.current.offsetHeight, 10, _this.WIDTH*250);
             _this.camera.position.set(0, 20, 100);
             _this.renderer = new THREE.WebGLRenderer({antialias: true});
             _this.renderer.setClearColor("#FFFFFF");
