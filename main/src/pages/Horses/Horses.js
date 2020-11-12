@@ -2,13 +2,22 @@ import React, { Component } from 'react'
 import * as THREE from "three"
 import "./Horses.css"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import ResizeObserver from 'rc-resize-observer';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer.js';
+import { withStyles } from "@material-ui/core";
 
 import {Utils} from "dotstarlib";
 
-export default class Horses extends Component {
+const styles = theme => ({
+    container:{
+        width: "100vw",
+        height: "100vh"
+    }
+})
+
+class Horses extends Component {
     constructor(props) {
         super(props);
         this.container = React.createRef();
@@ -19,10 +28,10 @@ export default class Horses extends Component {
         this.horseGeometry = new THREE.BufferGeometry();
 
         //Settings
-        this.WIDTH = 64;
+        this.WIDTH = this.props.width || 64;
         this.HORSES = this.WIDTH * this.WIDTH;
 
-        this.BOUNDS = this.WIDTH*100;
+        this.BOUNDS = this.WIDTH*400;
         this.BOUNDS_HALF = this.BOUNDS/2;
 
         this.raycaster = new THREE.Raycaster();
@@ -49,9 +58,9 @@ export default class Horses extends Component {
 
         for ( var k = 0, kl = theArray.length; k < kl; k += 4 ) {
 
-            theArray[ k + 0 ] = 10;
+            theArray[ k + 0 ] = 10 * Math.random();
             theArray[ k + 1 ] = 0;
-            theArray[ k + 2 ] = 10;
+            theArray[ k + 2 ] = 10 * Math.random();
             theArray[ k + 3 ] = 1;
         }
     }
@@ -143,7 +152,7 @@ export default class Horses extends Component {
 
 
             vec2 uv = gl_FragCoord.xy / resolution.xy;
-            vec3 birdPosition, birdVelocity;
+            vec3 horsePosition, horseVelocity;
 
             vec3 selfPosition = texture2D( texturePosition, uv ).xyz;
             vec3 selfVelocity = texture2D( textureVelocity, uv ).xyz;
@@ -167,11 +176,11 @@ export default class Horses extends Component {
             dist = length( dir );
             distSquared = dist * dist;
 
-            float preyRadius = 400.0;
+            float preyRadius = 1000.0;
             float preyRadiusSq = preyRadius * preyRadius;
 
 
-            // move birds away from predator
+            // move horses away from predator
             if ( dist < preyRadius ) {
 
                 f = ( distSquared / preyRadiusSq - 1.0 ) * delta * 100.;
@@ -191,15 +200,15 @@ export default class Horses extends Component {
             dist = length( dir );
 
             dir.y *= 2.5;
-            velocity -= normalize( dir ) * delta * 5.;
+            velocity -= normalize( dir ) * delta * 1.;
 
             for ( float y = 0.0; y < height; y++ ) {
                 for ( float x = 0.0; x < width; x++ ) {
 
                     vec2 ref = vec2( x + 0.5, y + 0.5 ) / resolution.xy;
-                    birdPosition = texture2D( texturePosition, ref ).xyz;
+                    horsePosition = texture2D( texturePosition, ref ).xyz;
 
-                    dir = birdPosition - selfPosition;
+                    dir = horsePosition - selfPosition;
                     dist = length( dir );
 
                     if ( dist < 0.0001 ) continue;
@@ -222,10 +231,10 @@ export default class Horses extends Component {
                         float threshDelta = alignmentThresh - separationThresh;
                         float adjustedPercent = ( percent - separationThresh ) / threshDelta;
 
-                        birdVelocity = texture2D( textureVelocity, ref ).xyz;
+                        horseVelocity = texture2D( textureVelocity, ref ).xyz;
 
                         f = ( 0.5 - cos( adjustedPercent * PI_2 ) * 0.5 + 0.5 ) * delta;
-                        velocity += normalize( birdVelocity ) * f;
+                        velocity += normalize( horseVelocity ) * f;
 
                     } else {
 
@@ -268,7 +277,7 @@ export default class Horses extends Component {
         this.velocityUniforms[ "time" ] = { value: 1.0 };
         this.velocityUniforms[ "delta" ] = { value: 0.0 };
         this.velocityUniforms[ "testing" ] = { value: 1.0 };
-        this.velocityUniforms[ "separationDistance" ] = { value: 50.0 };
+        this.velocityUniforms[ "separationDistance" ] = { value: 20.0 };
         this.velocityUniforms[ "alignmentDistance" ] = { value: 20.0};
         this.velocityUniforms[ "cohesionDistance" ] = { value: 20.0 };
         this.velocityUniforms[ "freedomFactor" ] = { value: 0.85 };
@@ -347,17 +356,17 @@ export default class Horses extends Component {
 
             let bIndex = i % (horseGeo.getAttribute('position').count);
 
-            let bird = Math.floor(i / horseGeo.getAttribute('position').count);
+            let horse = Math.floor(i / horseGeo.getAttribute('position').count);
             if (bIndex === 0){
                 xr = Math.random();
                 yr = Math.random();
                 zr = Math.random();
             } 
-            let j = ~ ~bird;
+            let j = ~ ~horse;
             let x = (j % this.WIDTH) / this.WIDTH;
             let y = ~ ~(j / this.WIDTH) / this.WIDTH;
             reference.push(x, y, bIndex / tWidth, durationAnimation / tHeight);
-            seeds.push(bird, xr, yr, zr);
+            seeds.push(horse, xr, yr, zr);
 
         }
 
@@ -369,7 +378,7 @@ export default class Horses extends Component {
         }
 
         this.horseGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(vertices), 3));
-        this.horseGeometry.setAttribute('birdColor', new THREE.BufferAttribute(new Float32Array(color), 3));
+        this.horseGeometry.setAttribute('horseColor', new THREE.BufferAttribute(new Float32Array(color), 3));
         this.horseGeometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(color), 3));
         this.horseGeometry.setAttribute('reference', new THREE.BufferAttribute(new Float32Array(reference), 4));
         this.horseGeometry.setAttribute('seeds', new THREE.BufferAttribute(new Float32Array(seeds), 4));
@@ -404,7 +413,7 @@ export default class Horses extends Component {
             let insert = `
                 attribute vec4 reference;
                 attribute vec4 seeds;
-                attribute vec3 birdColor;
+                attribute vec3 horseColor;
                 uniform sampler2D texturePosition;
                 uniform sampler2D textureVelocity;
                 uniform sampler2D textureAnimation;
@@ -537,18 +546,27 @@ export default class Horses extends Component {
 
     }
 
+    resize = (width, height) => {
+        console.log(width, height);
+        if(this.camera){
+            this.renderer.setSize(width, height);
+            this.camera.aspect = width / height;
+            this.camera.updateProjectionMatrix();
+        }
+    }
+
     componentDidMount() {
         let _this = this;
 
         window.setTimeout(function () {
             _this.camera = new THREE.PerspectiveCamera(75, _this.container.current.offsetWidth / _this.container.current.offsetHeight, 10, 10000);
             _this.camera.position.set(0, 20, 100);
-            _this.renderer = new THREE.WebGLRenderer();
+            _this.renderer = new THREE.WebGLRenderer({antialias: true});
             _this.renderer.setClearColor("#FFFFFF");
 
             _this.controls = new OrbitControls(_this.camera, _this.renderer.domElement);
             _this.controls.target = new THREE.Vector3(0, 0, 0);
-            _this.controls.enablePan = false;
+            //_this.controls.enablePan = false;
             _this.controls.maxDistance = _this.BOUNDS_HALF * 0.5;
             _this.controls.maxPolarAngle = Math.PI/2 - 0.25;
 
@@ -563,9 +581,13 @@ export default class Horses extends Component {
 
     render() {
         return (
-            <div className="horse-container" ref={this.container} onMouseMove={(e) => this.onCanvasMouseMove(e)} onTouchStart={(e) => this.onCanvasTouchMove(e)} onTouchMove={(e) => this.onCanvasTouchMove(e)}>
+            <ResizeObserver onResize = {({ width, height }) => this.resize(width, height)}>
+                <div className="horse-container" className={this.props.classes.container} ref={this.container} onMouseMove={(e) => this.onCanvasMouseMove(e)} onTouchStart={(e) => this.onCanvasTouchMove(e)} onTouchMove={(e) => this.onCanvasTouchMove(e)}>
 
-            </div>
+                </div>
+            </ResizeObserver>
         )
     }
 }
+
+export default withStyles(styles)(Horses)

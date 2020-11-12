@@ -26,8 +26,11 @@ function App() {
 		<ThemeProvider theme={theme}>
 			<Router>
 				<Switch>
-					<Route path="/horses">
+					<Route path="/horse">
 						<Horses />
+					</Route>
+					<Route path="/morse">
+						<Horses width={128}/>
 					</Route>
 					<Route path="/home">
 						<Home seen={true} />

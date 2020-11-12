@@ -7,7 +7,7 @@ import Technologies from "./Technologies"
 
 import { Devices, Forward, Info, Person, Code} from "@material-ui/icons";
 import { Home as HomeIcon} from "@material-ui/icons";
-import Pagify from '../../sharedComponents/Pagify/Pagify';
+import Pagify from 'react-mui-pagify';
 import WhyDotStar from './WhyDotStar/WhyDotStar';
 import Consult from './Consult';
 
